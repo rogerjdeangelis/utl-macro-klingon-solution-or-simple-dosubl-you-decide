@@ -9,7 +9,10 @@ Problem sort the macro variable
   Two Solutions                                                                                                                  
                                                                                                                                  
         a. dosubl                                                                                                                
-        b. kingon                                                                                                                
+        b. kingon   
+        c. Barts Macroarray Packages
+           Bartosz Jablonski  
+           yabwon@gmail.com   
                                                                                                                                  
 You need this macro                                                                                                              
                                                                                                                                  
