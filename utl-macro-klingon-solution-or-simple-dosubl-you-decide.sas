@@ -84,5 +84,64 @@ STR=-9,6,6,8,15,16,30,86,98,100
                                                                                                                                  
  %put &=new_list;                                                                                                                
                                                                                                                                  
- NEW_LIST=-9, 6, 6, 8, 15, 16, 30, 86, 98, 100                                                                                   
+ NEW_LIST=-9, 6, 6, 8, 15, 16, 30, 86, 98, 100     
+ 
+ /*        ____             _                                                                                     
+  ___    | __ )  __ _ _ __| |_   _ __ ___   __ _ _ __ _ __ __ _ _   _                                            
+ / __|   |  _ \ / _` | '__| __| | '_ ` _ \ / _` | '__| '__/ _` | | | |                                           
+| (__ _  | |_) | (_| | |  | |_  | | | | | | (_| | |  | | | (_| | |_| |                                           
+ \___(_) |____/ \__,_|_|   \__| |_| |_| |_|\__,_|_|  |_|  \__,_|\__, |                                           
+                                                                |___/                                            
+*/                                                                                                               
+Roger,                                                                                                           
+you could use the MacroArray package :-)                                                                         
+Bart                                                                                                             
+                                                                                                                 
+This package extends the functionality of Ted Clays array and do_over package.                                   
+                                                                                                                 
+/* enable the framework */                                                                                       
+filename packages "%sysfunc(pathname(work))";                                                                    
+filename spfinit url "https://raw.githubusercontent.com/yabwon/SAS_PACKAGES/master/loadpackage.sas";             
+%include spfinit;                                                                                                
+                                                                                                                 
+%installPackage(macroarray);                                                                                     
+%loadPackage(macroarray);                                                                                        
+                                                                                                                 
+options sasautos=(sasautos "c:/oto");                                                                            
+                                                                                                                 
+%let str = 15, 30, 16, 8, 86, 98, 6, 6, 100, -9;                                                                 
+%let cw = %qsysfunc(countw((&str.)));                                                                            
+                                                                                                                 
+%array(h[&cw.] (&str.)                                                                                           
+, after = call sortn(of h[*])                                                                                    
+, macarray=Y)                                                                                                    
+                                                                                                                 
+                                                                                                                 
+* sorted;                                                                                                        
+%put _user_;                                                                                                     
+                                                                                                                 
+GLOBAL H1 -9                                                                                                     
+GLOBAL H2 6                                                                                                      
+GLOBAL H3 6                                                                                                      
+GLOBAL H4 8                                                                                                      
+GLOBAL H5 15                                                                                                     
+GLOBAL H6 16                                                                                                     
+GLOBAL H7 30                                                                                                     
+GLOBAL H8 86                                                                                                     
+GLOBAL H9 98                                                                                                     
+GLOBAL H10 100                                                                                                   
+GLOBAL HHBOUND 10                                                                                                
+GLOBAL HLBOUND 1                                                                                                 
+GLOBAL HN 10                                                                                                     
+                                                                                                                 
+* just load then into a string;                                                                                  
+%let str = %do_over(h, between=%str(,));                                                                         
+%put *&=str.*;                                                                                                   
+                                                                                                                 
+*STR=-9 , 6 , 6 , 8 , 15 , 16 , 30 , 86 , 98 , 100*                                                              
+                                                                                                                 
+* cleanup array;                                                                                                 
+%deleteMacArray(H, macarray = Y)                                                                                 
+                                                                                                                 
+
                                                                                                                                  
